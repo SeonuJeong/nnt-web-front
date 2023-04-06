@@ -8,6 +8,12 @@ const router = createRouter({
       path: "/",
       name: "main",
       component: MainView,
+      children: [
+        {
+          path: "menu",
+          component: () => import("@/views/Home/MenuView.vue"),
+        },
+      ],
     },
   ],
 });
