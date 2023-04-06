@@ -2,22 +2,10 @@
 import router from "@/router";
 import axios from "axios";
 import { useUserStore } from "@/stores/user.js";
-import { alertController } from "@ionic/vue";
 const userStore = useUserStore();
 
 const getCookieValue = (name) =>
   document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() || "";
-
-const errorAlert = async (msg) => {
-  const alert = await alertController.create({
-    header: "오류",
-    subHeader: "",
-    message: msg,
-    buttons: ["OK"],
-  });
-
-  await alert.present();
-};
 
 const data = async function () {
   await axios({
