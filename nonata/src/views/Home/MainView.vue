@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import router from "@/router";
 
 const lat = ref(35.2309383);
 const lng = ref(129.0825007);
@@ -23,6 +24,14 @@ const initMap = function () {
 onMounted(() => {
   initMap();
 });
+
+const hamburgerClick = function () {
+  router.push("/menu");
+};
+
+const start = function () {
+  router.push("/map");
+};
 </script>
 
 <template>
@@ -41,6 +50,10 @@ onMounted(() => {
         />
       </div>
     </nav>
+
+    <RouterView></RouterView>
+
+    <div class="share-wrap" @click="start">시작</div>
   </div>
 </template>
 
