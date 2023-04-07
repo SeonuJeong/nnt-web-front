@@ -191,6 +191,93 @@ const stateToggle = function () {
     panTo(useloc.getStart().value.lat, useloc.getStart().value.lng);
   }
 };
+
+const makeRoom = function () {
+  axios({
+    method: "post",
+    url: "/api/make",
+    data: {
+      startX: startLoc.value.lat,
+      startY: startLoc.value.lng,
+      destX: destLoc.value.lat,
+      destY: destLoc.value.lng,
+      startAddress: useloc.getStart().value.address,
+      destAddress: useloc.getDest().value.address,
+    },
+    headers: {
+      Authorization: "Bearer " + getCookieValue("Authorization"),
+    },
+  })
+    .then(function (response) {
+      console.log(response);
+      if (response.data.status == "INTERNAL_SERVER_ERROR") {
+        console.log(response);
+        errorAlert(response.data.data);
+        return;
+      }
+      successAlert("방을 생성했습니다.");
+      router.push("/menu");
+    })
+    .catch(function (error) {
+      userStore.logout();
+      errorAlert("로그인 유효 시간을 초과했습니다.");
+      router.push("/menu");
+    });
+};
+
+const selectRoomId = ref(-1);
+
+const choose = function (locationDto, roomId) {
+  if (selectRoomId.value != -1) {
+    selectRoomId.value = -1;
+    roomStartMarker.setMap(null);
+    roomDestMarker.setMap(null);
+    return;
+  }
+
+  selectRoomId.value = roomId;
+
+  roomStartMarker.setMap(null);
+  roomDestMarker.setMap(null);
+
+  roomStartMarker.setPosition(
+    new kakao.maps.LatLng(locationDto.startX, locationDto.startY)
+  );
+  roomDestMarker.setPosition(
+    new kakao.maps.LatLng(locationDto.destX, locationDto.destY)
+  );
+
+  roomStartMarker.setMap(map);
+  roomDestMarker.setMap(map);
+};
+
+const selectRoom = function () {
+  axios({
+    method: "post",
+    url: "/api/enter",
+    data: {
+      roomId: selectRoomId.value,
+    },
+    headers: {
+      Authorization: "Bearer " + getCookieValue("Authorization"),
+    },
+  })
+    .then(function (response) {
+      if (response.data.status == "INTERNAL_SERVER_ERROR") {
+        console.log(response);
+        errorAlert(response.data.data);
+        return;
+      }
+      console.log(response);
+      successAlert("방에 입장했습니다.");
+      router.push("/menu");
+    })
+    .catch(function (error) {
+      userStore.logout();
+      errorAlert("로그인 유효 시간을 초과했습니다.");
+      router.push("/menu");
+    });
+};
 </script>
 
 <template>
