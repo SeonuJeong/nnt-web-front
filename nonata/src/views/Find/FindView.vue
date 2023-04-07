@@ -4,6 +4,8 @@ import { useLocationStore } from "@/stores/location.js";
 import axios from "axios";
 import { alertController } from "@ionic/vue";
 import { useUserStore } from "@/stores/user.js";
+import resultList from "@/components/find/resultList.vue";
+import notFind from "@/components/find/notFind.vue";
 
 const userStore = useUserStore();
 
