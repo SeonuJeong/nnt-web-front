@@ -142,6 +142,19 @@ const changeEnd = function ({ detail }) {
       </div>
       <div class="explain-wrap">검색 범위를 설정해주세요.</div>
     </nav>
+
+    <div class="range-wrap">
+      <ion-range
+        :pin="true"
+        :pin-formatter="pinFormatter"
+        class="ion-range"
+        :min="50"
+        :max="500"
+        @ion-change="rangeChange"
+        @ion-knob-move-end="changeEnd"
+        :value="rangeVal"
+      ></ion-range>
+    </div>
   </div>
 </template>
 
@@ -188,5 +201,26 @@ const changeEnd = function ({ detail }) {
   line-height: 40px;
   color: black;
   font-weight: bold;
+}
+
+.range-wrap {
+  position: absolute;
+  width: 320px;
+  height: 50px;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 150px;
+  z-index: 1;
+}
+
+.ion-range {
+  /* --bar-background: #a2d2ff;
+  --bar-background-active: #bde0fe; */
+  --bar-height: 8px;
+  --bar-border-radius: 8px;
+  --knob-background: #ffffff;
+  --knob-size: 40px;
+  --pin-background: #28bb71;
+  --pin-color: #fff;
 }
 </style>
