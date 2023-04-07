@@ -91,3 +91,16 @@ onMounted(() => {
   destCircle.setMap(map);
 });
 </script>
+
+<template>
+  <div>
+    <div id="map" class="map"></div>
+  </div>
+</template>
+
+<style scoped>
+.map {
+  width: 100%;
+  height: inherit;
+}
+</style>
