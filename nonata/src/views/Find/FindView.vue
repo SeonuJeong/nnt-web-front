@@ -290,6 +290,12 @@ const selectRoom = function () {
       </div>
       <div class="explain-wrap">검색 결과</div>
     </nav>
+
+    <div class="state-change-wrap" @click="stateToggle">
+      <div :class="state == 'start' ? 'state-block-red' : 'state-block-blue'">
+        {{ state == "start" ? "출발" : "도착" }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -337,5 +343,53 @@ const selectRoom = function () {
   line-height: 40px;
   color: black;
   font-weight: bold;
+}
+
+.state-change-wrap {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  top: 70px;
+  left: 30px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px 20px 20px 20px;
+}
+
+.state-block-red {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #e84133;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+}
+
+.state-block-blue {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #5491f5;
+  left: 50px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+}
+
+.state-block-text {
+  text-align: center;
+  line-height: inherit;
 }
 </style>
