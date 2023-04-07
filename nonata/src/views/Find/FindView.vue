@@ -301,6 +301,20 @@ const selectRoom = function () {
         {{ state == "start" ? "출발" : "도착" }}
       </div>
     </div>
+
+    <div class="result-list-wrap">
+      <notFind v-if="rooms.length == 0"></notFind>
+      <div v-if="rooms.length > 0" class="result-list-container">
+        <resultList
+          v-for="room in rooms"
+          :key="room.roomId"
+          :room="room"
+          class="result-list-content"
+          @choose="choose"
+          :class="[{ selected: room.roomId == selectRoomId }]"
+        ></resultList>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -426,5 +440,36 @@ const selectRoom = function () {
   color: white;
   text-align: center;
   line-height: 50px;
+}
+
+.result-list-wrap {
+  position: relative;
+  width: 100%;
+  height: 50%;
+  background-color: white;
+}
+
+.result-list-container {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.result-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.result-list-content {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid rgba(206, 205, 205, 0.993);
+  background-color: rgb(255, 255, 255);
+}
+
+.selected {
+  background-color: #35ffab;
 }
 </style>
