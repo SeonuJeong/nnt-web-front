@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useLocationStore } from "@/stores/location.js";
 import { IonRange } from "@ionic/vue";
-
+import router from "@/router";
 const useloc = useLocationStore();
 
 const startLoc = useloc.getStart();
@@ -142,6 +142,10 @@ const stateToggle = function () {
     panTo(useloc.getStart().value.lat, useloc.getStart().value.lng);
   }
 };
+
+const isComplete = function () {
+  router.push("/find");
+};
 </script>
 
 <template>
@@ -173,6 +177,8 @@ const stateToggle = function () {
         :value="rangeVal"
       ></ion-range>
     </div>
+
+    <div class="next-stage-wrap" @click="isComplete">다음</div>
   </div>
 </template>
 
@@ -288,5 +294,20 @@ const stateToggle = function () {
 .state-block-text {
   text-align: center;
   line-height: inherit;
+}
+
+.next-stage-wrap {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  bottom: 200px;
+  right: 10px;
+  z-index: 1;
+  background-color: #01c864;
+  border-radius: 50px 50px 50px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  text-align: center;
+  line-height: 50px;
 }
 </style>
