@@ -282,7 +282,12 @@ const selectRoom = function () {
 
 <template>
   <div>
-    <div id="map" class="map"></div>
+    <div id="map" class="map">
+      <div class="next-stage-wrap" @click="makeRoom">방만들기</div>
+      <div v-show="selectRoomId != -1" class="select-wrap" @click="selectRoom">
+        입장
+      </div>
+    </div>
 
     <nav name="bar-wrap" class="bar-wrap">
       <div name="back-control" class="back-control" @click="router.back()">
@@ -391,5 +396,35 @@ const selectRoom = function () {
 .state-block-text {
   text-align: center;
   line-height: inherit;
+}
+
+.next-stage-wrap {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  background-color: #01c864;
+  border-radius: 50px 50px 50px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  text-align: center;
+  line-height: 50px;
+}
+
+.select-wrap {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  bottom: 10px;
+  right: 120px;
+  z-index: 2;
+  background-color: #01c864;
+  border-radius: 50px 50px 50px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  text-align: center;
+  line-height: 50px;
 }
 </style>
