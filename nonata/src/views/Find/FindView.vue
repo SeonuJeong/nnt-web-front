@@ -168,6 +168,29 @@ onMounted(() => {
   });
   destCircle.setMap(map);
 });
+
+let state = ref("start");
+
+const panTo = function (lat, lng) {
+  // 이동할 위도 경도 위치를 생성합니다
+  const moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+};
+
+const stateToggle = function () {
+  if (state.value == "start") {
+    state.value = "dest";
+    rangeVal.value = useloc.getDest().value.range;
+    panTo(useloc.getDest().value.lat, useloc.getDest().value.lng);
+  } else {
+    state.value = "start";
+    rangeVal.value = useloc.getStart().value.range;
+    panTo(useloc.getStart().value.lat, useloc.getStart().value.lng);
+  }
+};
 </script>
 
 <template>
