@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useLocationStore } from "@/stores/location.js";
+import { IonRange } from "@ionic/vue";
 
 const useloc = useLocationStore();
 
@@ -13,6 +14,7 @@ let destMarker = null;
 
 let map = null;
 
+let rangeVal = ref(useloc.getStart().value.range);
 let startCircle = null;
 let destCircle = null;
 
@@ -90,6 +92,44 @@ onMounted(() => {
   });
   destCircle.setMap(map);
 });
+
+let pinFormatter = (value) => `${value}m`;
+let state = ref("start");
+
+const panTo = function (lat, lng) {
+  // 이동할 위도 경도 위치를 생성합니다
+  const moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+};
+
+const rangeChange = function ({ detail }) {
+  if (state.value == "start") {
+    rangeVal.value = detail.value;
+    startCircle.setMap(null);
+    startCircle.setOptions({
+      radius: detail.value,
+    });
+    startCircle.setMap(map);
+  } else {
+    rangeVal.value = detail.value;
+    destCircle.setMap(null);
+    destCircle.setOptions({
+      radius: detail.value,
+    });
+    destCircle.setMap(map);
+  }
+};
+
+const changeEnd = function ({ detail }) {
+  if (state.value == "start") {
+    useloc.setStartRange(detail.value);
+  } else if (state.value == "dest") {
+    useloc.setDestRange(detail.value);
+  }
+};
 </script>
 
 <template>
