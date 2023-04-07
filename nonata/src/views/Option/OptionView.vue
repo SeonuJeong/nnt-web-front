@@ -130,6 +130,18 @@ const changeEnd = function ({ detail }) {
     useloc.setDestRange(detail.value);
   }
 };
+
+const stateToggle = function () {
+  if (state.value == "start") {
+    state.value = "dest";
+    rangeVal.value = useloc.getDest().value.range;
+    panTo(useloc.getDest().value.lat, useloc.getDest().value.lng);
+  } else {
+    state.value = "start";
+    rangeVal.value = useloc.getStart().value.range;
+    panTo(useloc.getStart().value.lat, useloc.getStart().value.lng);
+  }
+};
 </script>
 
 <template>
@@ -142,6 +154,12 @@ const changeEnd = function ({ detail }) {
       </div>
       <div class="explain-wrap">검색 범위를 설정해주세요.</div>
     </nav>
+
+    <div class="state-change-wrap" @click="stateToggle">
+      <div :class="state == 'start' ? 'state-block-red' : 'state-block-blue'">
+        {{ state == "start" ? "출발" : "도착" }}
+      </div>
+    </div>
 
     <div class="range-wrap">
       <ion-range
@@ -222,5 +240,53 @@ const changeEnd = function ({ detail }) {
   --knob-size: 40px;
   --pin-background: #28bb71;
   --pin-color: #fff;
+}
+
+.state-change-wrap {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  top: 70px;
+  left: 30px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px 20px 20px 20px;
+}
+
+.state-block-red {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #e84133;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+}
+
+.state-block-blue {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #5491f5;
+  left: 50px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+}
+
+.state-block-text {
+  text-align: center;
+  line-height: inherit;
 }
 </style>
