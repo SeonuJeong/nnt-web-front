@@ -6,6 +6,7 @@ import { alertController } from "@ionic/vue";
 import { useUserStore } from "@/stores/user.js";
 import resultList from "@/components/find/resultList.vue";
 import notFind from "@/components/find/notFind.vue";
+import router from "@/router";
 
 const userStore = useUserStore();
 
