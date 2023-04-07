@@ -46,6 +46,23 @@ const router = createRouter({
         return router.push("/menu");
       },
     },
+    {
+      path: "/option",
+      name: "option",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("@/views/Option/OptionView.vue"),
+      beforeEnter: (to, from) => {
+        const userStore = useUserStore();
+
+        if (userStore.getLogin) {
+          return true;
+        }
+        loginAlert();
+        return router.push("/menu");
+      },
+    },
   ],
 });
 
