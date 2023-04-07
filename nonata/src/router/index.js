@@ -63,6 +63,23 @@ const router = createRouter({
         return router.push("/menu");
       },
     },
+    {
+      path: "/find",
+      name: "find",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("@/views/Find/FindView.vue"),
+      beforeEnter: (to, from) => {
+        const userStore = useUserStore();
+
+        if (userStore.getLogin) {
+          return true;
+        }
+        loginAlert();
+        return router.push("/menu");
+      },
+    },
   ],
 });
 
