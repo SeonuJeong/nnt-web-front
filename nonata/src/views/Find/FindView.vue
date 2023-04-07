@@ -283,6 +283,13 @@ const selectRoom = function () {
 <template>
   <div>
     <div id="map" class="map"></div>
+
+    <nav name="bar-wrap" class="bar-wrap">
+      <div name="back-control" class="back-control" @click="router.back()">
+        <img class="back-arrow-icon" src="@/assets/img/back.png" />
+      </div>
+      <div class="explain-wrap">검색 결과</div>
+    </nav>
   </div>
 </template>
 
@@ -291,5 +298,44 @@ const selectRoom = function () {
   position: relative;
   width: 100%;
   height: 50%;
+}
+
+.bar-wrap {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+  border-radius: 20px 20px 20px 20px;
+  width: 90%;
+  height: 40px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.back-control {
+  position: absolute;
+  width: 10%;
+  height: 100%;
+  border-radius: 20px 0px 0px 20px;
+  background-color: #f5f5f5;
+}
+
+.back-arrow-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.explain-wrap {
+  position: absolute;
+  left: 10%;
+  width: 90%;
+  height: 40px;
+  border-radius: 0px 20px 20px 0px;
+  background-color: white;
+  text-align: center;
+  line-height: 40px;
+  color: black;
+  font-weight: bold;
 }
 </style>
